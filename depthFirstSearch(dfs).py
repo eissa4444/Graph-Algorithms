@@ -7,11 +7,21 @@ def dfs_iterative(graph,vertex):
 			stack.extend(graph[vertex] - visited)
 	return visited
 
-#Testing the algorithims
+def dfs_recursive(graph,vertex,visited=None):
+	if visited == None:
+		visited = set()
+	visited.add(vertex)
+	for next in graph[vertex] - visited:
+		dfs_recursive(graph,next,visited)
+	return visited
+
+#######3Testing the algorithims########
 graph = {'A': set(['B', 'C']),
          'B': set(['A', 'D', 'E']),
          'C': set(['A', 'F']),
          'D': set(['B']),
          'E': set(['B', 'F']),
          'F': set(['C', 'E'])}
-print(dfs_iterative(graph,'A'))
+
+print("dfs-iterative: "+str(dfs_iterative(graph,'A')))
+print("dfs-recursive: "+str(dfs_recursive(graph,'A')))
