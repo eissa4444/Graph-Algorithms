@@ -25,6 +25,14 @@ def dfs_paths(graph, start, goal):
                 yield path + [next]
             else:
                 stack.append((next, path + [next]))
+				
+def dfs_paths_recursive(graph,start,goal,path=None):
+	if path == None:
+		path = [start]
+	if start == goal:
+		yield path
+	for next in graph[start] - set(path):
+		yield from dfs_paths_recursive(graph,next,goal,path + [next])
 
 #######3Testing the algorithims########
 graph = {'A': set(['B', 'C']),
@@ -37,3 +45,5 @@ graph = {'A': set(['B', 'C']),
 print("dfs-iterative: "+str(dfs_iterative(graph,'A')))
 print("dfs-recursive: "+str(dfs_recursive(graph,'A')))
 print("all possible paths from vertx A to F is: " + str(list(dfs_paths(graph,'A','F'))))
+print("recursively all possible paths from vertx A to F is: " + str(list(dfs_paths_recursive(graph,'A','F'))))
+
